@@ -1,0 +1,18 @@
+<launch>
+
+  <!-- URDF 文件路径 -->
+  <param name="robot_description" command="$(find xacro)/xacro '$(find lerobot_description)/urdf/so101_base.xacro'" />
+
+  <!-- 启动 RViz -->
+      <arg name="rviz_config" default="$(find lerobot_description)/rviz/rviz_show_robot.rviz" />
+    <node pkg="rviz" type="rviz" name="rviz" output="screen" args="-d $(arg rviz_config)">
+    <param name="use_sim_time" value="false" />
+  </node>
+
+  <!-- 发布关节状态 -->
+  <!-- <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" /> -->
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" />
+
+    <!-- joint state publisher (GUI 可调关节) -->
+  <node pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" name="joint_state_publisher_gui" />
+</launch>
